@@ -1,0 +1,57 @@
+{% extends 'base.html'%}
+
+{% load static %}
+
+{% block head%}
+<link rel="stylesheet" href="{% static '/css/setup.css' %}">
+{%endblock head%}
+
+{%block body%}
+
+<form action="changeprofile" method ="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <center>
+        <div class="box">
+            <table>
+            <input type="file" id="file" name="profilepic">
+            <img src="media/{{profile.pic}}" id="photo" width="100%" height="100%">
+            <label for="file">EDIT PIC</label>
+            <br>
+            <span>{{error}}</span>
+            
+                <tr>
+                    <th>Username</th>
+                    <td>
+                        <input type="text" value="{{profile.userinfo.username}}" name="username">
+
+                    </td>
+                </tr>
+                <tr>
+                    <th>Status</th>
+                    <td>
+
+
+
+                        <input type="text" value="{{profile.status}}" name="status">
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Bio
+                    </th>
+                    <td>
+
+
+                        <textarea name="bio" type="text" rows="3">{{profile.bio}}</textarea>
+                    </td>
+                </tr>
+            
+            </table>
+            <button type="submit" class="btn btn-dark">Update</button>
+        
+        </div>
+</form>
+</center>
+<script src="{% static '/js/setup.js' %}"></script>
+
+{%endblock body%}

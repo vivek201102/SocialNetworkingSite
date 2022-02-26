@@ -1,0 +1,50 @@
+{% extends 'base.html'%}
+
+{% block head%}
+
+{% endblock head %}
+
+
+
+{% block body%}
+<form action="auth" method="POST">
+
+    {% csrf_token %}
+    <table>
+        <h3>Login</h3>
+        <span style="color:red;">{{login_error}}</span>
+        <tr>
+            <th>
+                Enter Your Username:
+            </th>
+        </tr>
+        
+        <tr>
+            <th>
+                <input type="text" name="uname">
+            </th>
+        </tr>
+
+        <tr>
+            <th>
+                Enter Your Password:
+            </th>
+        </tr>
+
+        <tr>
+            <th>
+                <input type="password" name="pass">
+            </th>
+        </tr>
+
+        <tr>
+            <th>
+                <button type="submit" class="btn btn-dark">Login</button>
+                <a href="signup" class="btn btn-dark">New User?</a>
+            </th>
+        </tr>
+    </table>
+</form>
+<a href="password_reset">Forgot Password?</a>
+{% endblock body %}
+

@@ -1,0 +1,32 @@
+{% extends 'base.html'%}
+
+{% load static %}
+
+{% block head%}
+<link rel="stylesheet" href="{% static '/css/setup.css' %}">
+{%endblock head%}
+
+{%block body%}
+<center>
+    <form action="setup" method ="POST" enctype="multipart/form-data">
+        <input type="hidden" value="{{username}}" name="uname">
+        <div class="box">
+        {% csrf_token%}
+            <input type="file" id="file" name="profilepic">
+            <img src="{%static 'img/image.jpg' %}" id="photo" width="100%" height="100%">
+            <label for="file">EDIT PIC</label>
+    
+        
+        
+            <input type="text" placeholder="Status" name="status" >
+            <textarea name="bio" placeholder="Bio" type="text" rows="5"></textarea>
+    
+        
+            <button type="submit" class="btn btn-dark">DONE</button>
+        
+        </div>
+    </form>
+    
+</center>
+    <script src="{% static '/js/setup.js' %}"></script>
+{%endblock body%}
