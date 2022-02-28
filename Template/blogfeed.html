@@ -14,6 +14,16 @@
     <a href="karamel">Blog Feed</a>
     <a href="blogform">Upload Blog</a>
  
+    {% for blog in blogs %}
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="media/{{blog.blogpic}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">{{blog.title}}</h5>
+          <p class="card-text">{{blog.description}}</p>
+          <a href="#" class="btn btn-primary">{{blog.userinfo.username}}</a>
+        </div>
+      </div>
 
+      {% endfor %}
 
 {%endblock body%}

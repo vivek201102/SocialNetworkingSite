@@ -15,8 +15,11 @@ def karamel(request):
     return blogfeed(request)
 
 def blogfeed(request):
-    
-    return render(request, "blogfeed.html", {"profile": request.POST['userprof']})
+    username = request.session['username']
+    userinfo = UserInfo.objects.get(username = username)
+    userprofile = request.POST['userprof']
+    blogs = Blogdetails.objects.all()
+    return render(request, "blogfeed.html", {"profile": userprofile, "blogs": blogs})
 
 def blogform(request):
     return render(request, "uploadblog.html")
