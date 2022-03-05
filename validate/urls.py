@@ -15,5 +15,9 @@ urlpatterns = [
     path('blogfeed', k_views.blogfeed, name="blogfeed"),
     path('updateform', k_views.updateform, name="updateform"),
     path('changeprofile', k_views.changeprofile, name="changeprofile"),
+    path('addfriend', k_views.addfriend, name="addfriend"),
+    path('linkfriend', k_views.linkfriend, name="linkfriend"),
+    path('friend', k_views.friend, name="friend"),
+    path('managereq', k_views.managereq, name="managereq"),
         
 ]
