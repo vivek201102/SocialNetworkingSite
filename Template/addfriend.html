@@ -104,21 +104,24 @@
             myself = response.my;
             friends = response.friends;
 
-            for(var i=0; i<userinfo.length; i++)
-            {
-              if(userinfo[i].username != myself)
-              {
+            for (var i = 0; i < userinfo.length; i++) {
+              var blocked = 'true';
+              if (userinfo[i].username != myself) {
                 var status = 'none';
-                for(var j=0; j<friends.length; j++)
-                {
-                  if(friends[j].touser == userinfo[i].username || friends[j].fromuser == userinfo[i].username)
-                  {
+                for (var j = 0; j < friends.length; j++) {
+                  if (friends[j].touser == userinfo[i].username || friends[j].fromuser == userinfo[i].username) {
                     status = friends[j].status;
+                    if(status == 'blocked')
+                    {
+                      if(friends[j].fromuser == myself)
+                      {
+                        blocked = 'false';
+                      }
+                    }
                   }
                 }
 
-                if(status == 'none')
-                {
+                if (status == 'none') {
                   console.log("None");
                   console.log(userinfo[i].username);
                   $("#newid").append(
@@ -128,15 +131,14 @@
                                 <td><input type="text" name='friendname' value='${userinfo[i].name}' name='${userinfo[i].name}' readonly></td>
                                 <td><button class='btn btn-dark' id='${userinfo[i].username}' name='${userinfo[i].username}' value='${userinfo[i].username}' onclick="myfunc(this)">Add Friend</button></td>
                               </tr>`);
-                              document.getElementById("flist").style.display = "inline-block";
+                  document.getElementById("flist").style.display = "inline-block";
 
                 }
 
-                else if(status == 'requested')
-                {
+                else if (status == 'requested') {
                   console.log("requested");
                   console.log(userinfo[i].username);
-                  
+
                   $("#newid").append(
                     `<tr>
                                 <td><img src="media/${userprofile[i]}" height="60" width="60" style="border-radius:50%"></td>
@@ -144,14 +146,13 @@
                                 <td><input type="text" name='friendname' value='${userinfo[i].name}' name='${userinfo[i].name}' readonly></td>
                                 <td><button class='btn btn-dark' id='${userinfo[i].username}' name='${userinfo[i].username}' value='${userinfo[i].username}' onclick="myfunc(this)" disabled>Requested</button></td>
                               </tr>`);
-                              document.getElementById("flist").style.display = "inline-block";
+                  document.getElementById("flist").style.display = "inline-block";
                 }
 
-                else if(status == 'Friends')
-                {
+                else if (status == 'Friends') {
                   console.log("Friends");
                   console.log(userinfo[i].username);
-                  
+
                   $("#newid").append(
                     `<tr>
                                 <td><img src="media/${userprofile[i]}" height="60" width="60" style="border-radius:50%"></td>
@@ -159,17 +160,27 @@
                                 <td><input type="text" name='friendname' value='${userinfo[i].name}' name='${userinfo[i].name}' readonly></td>
                                 <td><button class='btn btn-dark' id='${userinfo[i].username}' name='${userinfo[i].username}' value='${userinfo[i].username}' onclick="myfunc(this)" disabled>Already Friends</button></td>
                               </tr>`);
-                              document.getElementById("flist").style.display = "inline-block";
+                  document.getElementById("flist").style.display = "inline-block";
+                }
+
+                else if(status == 'blocked')
+                {
+                  if(blocked == 'false')
+                  {
+                    $("#newid").append(
+                    `<tr>
+                                <td><img src="media/${userprofile[i]}" height="60" width="60" style="border-radius:50%"></td>
+                                <td><input type="text" name='friendusername' value='${userinfo[i].username}' name='${userinfo[i].username}' readonly></td>
+                                <td><input type="text" name='friendname' value='${userinfo[i].name}' name='${userinfo[i].name}' readonly></td>
+                                <td><button class='btn btn-dark' id='${userinfo[i].username}' name='${userinfo[i].username}' value='${userinfo[i].username}' onclick="myfunc(this)" disabled>Requested</button></td>
+                              </tr>`);
+                  document.getElementById("flist").style.display = "inline-block";
+                  }
                 }
 
               }
 
             }
-
-
-
-            
-          
           }
         },
 

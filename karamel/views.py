@@ -137,7 +137,7 @@ def managereq(request):
         freq.delete()
         return JsonResponse({"msg": "Request declined"})
     
-    elif manage == "accept":
+    elif manage == "blocked":
         print("In the accept")
         freq = Friend.objects.filter(fromuser = fromuser, touser = username).first()
         freq.status = "blocked"
