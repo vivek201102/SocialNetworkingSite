@@ -28,9 +28,10 @@
 {% endblock head %}
 
 {% block body %}
+<div id="req">
 <h3>YOUR REQUEST LIST</h3>
 {% if profile %}
-<table>
+<table >
     <thead>
         <tr>
             <th>Profile</th>
@@ -49,7 +50,7 @@
             <td>{{r.userinfo.username}}</td>
             <td>{{r.userinfo.name}}</td>
             <td><button class="btn btn-dark" name="accept" value="{{r.userinfo.username}}" onclick="accept(this)">Accept</button></td>
-            <td><button class="btn btn-dark" name="decline" value="d{{r.userinfo.username}}" onclick="decline(this)">Decline</button></td>
+            <td><button class="btn btn-dark" name="decline" value="{{r.userinfo.username}}" onclick="decline(this)">Decline</button></td>
             <td><button class="btn btn-dark" name="block" value={{r.userinfo.username}}" onclick="block(this)">Block</button></td>
         </tr>
         {% endfor %}
@@ -59,10 +60,12 @@
 {% else %}
 <p>No requestes found!!!</p>
 {% endif %}
+</div>
 
-
+<div id="fl" >
 <h2>Your Friends</h2>
-<table>
+{% if friendlist %}
+<table >
     <tr>
         <thead>
             <th>Profile</th>
@@ -76,13 +79,16 @@
             <td><img src="media/{{l.pic}}" height="60" width="60" style="border-radius: 50%;"></td>
             <td>{{l.userinfo.username}}</td>
             <td>{{l.userinfo.name}}</td>
-            <td><button class="btn btn-dark" name="{{.userinfo.username}}" value="{{l.userinfo.username}}" onclick="remove(this)">Remove Friend</button></td>
+            <td><button class="btn btn-dark" name="{{userinfo.username}}" value="{{l.userinfo.username}}" onclick="remove(this)">Remove Friend</button></td>
             </tr>
             {% endfor %}
         </tbody>
     </tr>
 </table>
-
+{% else %}
+<p>No friends Found!!!</p>
+{% endif %}
+</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
@@ -102,12 +108,72 @@
 
             success: function(response)
             {
-                window.location.reload()
+                $("#req").load(location.href + " #req");
+                $("#fl").load(location.href + " #fl");
             }
 
         })
     }
 
+    function decline(a)
+    {
+        $.ajax({
+            type:'POST',
+            url:'managereq',
+            data:{
+                fromuser:a.value,
+                manage: "decline",
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            },
+
+            success: function(response)
+            {
+                $("#req").load(location.href + " #req");
+                $("#fl").load(location.href + " #fl");
+            }
+
+        })
+    }
+
+    function block(a)
+    {
+        $.ajax({
+            type:'POST',
+            url:'managereq',
+            data:{
+                fromuser:a.value,
+                manage: "blocked",
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            },
+
+            success: function(response)
+            {
+                $("#req").load(location.href + " #req");
+                $("#fl").load(location.href + " #fl");
+            }
+
+        })
+    }
+
+    function remove(a)
+    {
+        $.ajax({
+            type:'POST',
+            url:'managereq',
+            data:{
+                fromuser:a.value,
+                manage: "remove",
+                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+            },
+
+            success: function(response)
+            {
+                $("#req").load(location.href + " #req");
+                $("#fl").load(location.href + " #fl");
+            }
+
+        })
+    }
 </script>
 
 

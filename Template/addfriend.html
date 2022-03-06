@@ -68,13 +68,9 @@
           <th>Name</th>
           <th></th>
         </tr>
-        <thead>
+        <thead id="newid">
+
         <tbody>
-          <!-- <tr>
-                <td>img</td>
-                <td>@id</td>
-                <td>first name</td>
-              </tr> -->
         </tbody>
     </table>
 
@@ -107,55 +103,73 @@
             userprofile = response.profilelist;
             myself = response.my;
             friends = response.friends;
-            $("#users tbody").empty()
-            for (var i = 0; i < userinfo.length; i++) {
-              if (userinfo[i].username != myself) {
-                var status = "N";
-                for (var j = 0; j < friends.length; j++) {
 
-                  if (friends[j].touser == userinfo[i].username) {
+            for(var i=0; i<userinfo.length; i++)
+            {
+              if(userinfo[i].username != myself)
+              {
+                var status = 'none';
+                for(var j=0; j<friends.length; j++)
+                {
+                  if(friends[j].touser == userinfo[i].username || friends[j].fromuser == userinfo[i].username)
+                  {
                     status = friends[j].status;
                   }
                 }
 
-                if (status == 'N') {
-
-                  $("#users tbody").append(
+                if(status == 'none')
+                {
+                  console.log("None");
+                  console.log(userinfo[i].username);
+                  $("#newid").append(
                     `<tr>
                                 <td><img src="media/${userprofile[i]}" height="60" width="60" style="border-radius:50%"></td>
                                 <td><input type="text" name='friendusername' value='${userinfo[i].username}' name='${userinfo[i].username}' readonly></td>
                                 <td><input type="text" name='friendname' value='${userinfo[i].name}' name='${userinfo[i].name}' readonly></td>
                                 <td><button class='btn btn-dark' id='${userinfo[i].username}' name='${userinfo[i].username}' value='${userinfo[i].username}' onclick="myfunc(this)">Add Friend</button></td>
-                              </tr>`
-                  )
-                  document.getElementById("flist").style.display = "inline-block";
+                              </tr>`);
+                              document.getElementById("flist").style.display = "inline-block";
+
                 }
-                if (status == 'requested') {
-                  $("#users tbody").append(
+
+                else if(status == 'requested')
+                {
+                  console.log("requested");
+                  console.log(userinfo[i].username);
+                  
+                  $("#newid").append(
                     `<tr>
                                 <td><img src="media/${userprofile[i]}" height="60" width="60" style="border-radius:50%"></td>
                                 <td><input type="text" name='friendusername' value='${userinfo[i].username}' name='${userinfo[i].username}' readonly></td>
                                 <td><input type="text" name='friendname' value='${userinfo[i].name}' name='${userinfo[i].name}' readonly></td>
-                                <td><button class='btn btn-dark' id='${userinfo[i].username}' name='${userinfo[i].username}' value='${userinfo[i].username}' disabled>Requested</button></td>
-                              </tr>`
-                  )
-                  document.getElementById("flist").style.display = "inline-block";
+                                <td><button class='btn btn-dark' id='${userinfo[i].username}' name='${userinfo[i].username}' value='${userinfo[i].username}' onclick="myfunc(this)" disabled>Requested</button></td>
+                              </tr>`);
+                              document.getElementById("flist").style.display = "inline-block";
                 }
 
-
-                if (status == 'friend') {
-                  $("#users tbody").append(
+                else if(status == 'Friends')
+                {
+                  console.log("Friends");
+                  console.log(userinfo[i].username);
+                  
+                  $("#newid").append(
                     `<tr>
                                 <td><img src="media/${userprofile[i]}" height="60" width="60" style="border-radius:50%"></td>
                                 <td><input type="text" name='friendusername' value='${userinfo[i].username}' name='${userinfo[i].username}' readonly></td>
                                 <td><input type="text" name='friendname' value='${userinfo[i].name}' name='${userinfo[i].name}' readonly></td>
-                                <td><button class='btn btn-dark' id='${userinfo[i].username}' name='${userinfo[i].username}' value='${userinfo[i].username}' disabled>Already Friend</button></td>
-                              </tr>`
-                  )
-                  document.getElementById("flist").style.display = "inline-block";
+                                <td><button class='btn btn-dark' id='${userinfo[i].username}' name='${userinfo[i].username}' value='${userinfo[i].username}' onclick="myfunc(this)" disabled>Already Friends</button></td>
+                              </tr>`);
+                              document.getElementById("flist").style.display = "inline-block";
                 }
+
               }
+
             }
+
+
+
+            
+          
           }
         },
 
@@ -178,12 +192,11 @@
         csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
       },
 
-      success: function(response)
-        {
-          touser = response.user;
-          $("#"+touser).prop('disabled', true);
-          $("#"+touser).html("Requested");
-        }
+      success: function (response) {
+        touser = response.user;
+        $("#" + touser).prop('disabled', true);
+        $("#" + touser).html("Requested");
+      }
     })
   }
 </script>

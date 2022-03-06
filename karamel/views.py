@@ -72,7 +72,7 @@ def addfriend(request):
         username = request.session['username']
         myinfo = UserInfo.objects.filter(username = username).first()
         name = request.POST['name']
-        friendlist = Friend.objects.values().filter(userinfo = myinfo)
+        friendlist = Friend.objects.values().filter(Q(fromuser = username) | Q(touser = username))
         flist = list(friendlist)
         userinfo = UserInfo.objects.values().filter(Q(name__icontains = name) | Q(username__icontains = name))
         userinfo2 = UserInfo.objects.filter(Q(name__icontains = name) | Q(username__icontains = name))
@@ -118,8 +118,6 @@ def friend(request):
         userinfo = UserInfo.objects.filter(username = i.fromuser).first()
         userprofile = Userprofile.objects.filter(userinfo = userinfo).first()
         userprofilelist.append(userprofile)
-        print(userinfo)
-        print(userprofile)
     return render(request, "friends.html", {"requests":requestlist,"profile":userprofilelist, "friendlist": friendprofile})
 
 @csrf_exempt
@@ -127,9 +125,32 @@ def managereq(request):
     username = request.session['username']
     fromuser = request.POST['fromuser']
     manage = request.POST['manage']
-
     if manage == "accept":
+        print("In the accept")
         freq = Friend.objects.filter(fromuser = fromuser, touser = username).first()
         freq.status = "Friends"
         freq.save()
         return JsonResponse({"msg": "Request accepted"})
+    
+    elif manage == "decline":
+        freq = Friend.objects.filter(fromuser = fromuser, touser = username).first()
+        freq.delete()
+        return JsonResponse({"msg": "Request declined"})
+    
+    elif manage == "accept":
+        print("In the accept")
+        freq = Friend.objects.filter(fromuser = fromuser, touser = username).first()
+        freq.status = "blocked"
+        freq.save()
+        return JsonResponse({"msg": "user blocked"})
+
+    elif manage == "remove":
+        freq = Friend.objects.filter(fromuser = fromuser, touser = username).first()
+        if(freq):
+            freq.delete()
+            return JsonResponse({"msg": "Friend Removed"})
+        
+        else:
+            freq = Friend.objects.filter(fromuser = username, touser = fromuser).first()
+            freq.delete()
+            return JsonResponse({"msg": "Friend Removed"})
