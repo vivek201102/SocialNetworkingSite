@@ -51,7 +51,7 @@
             <td>{{r.userinfo.name}}</td>
             <td><button class="btn btn-dark" name="accept" value="{{r.userinfo.username}}" onclick="accept(this)">Accept</button></td>
             <td><button class="btn btn-dark" name="decline" value="{{r.userinfo.username}}" onclick="decline(this)">Decline</button></td>
-            <td><button class="btn btn-dark" name="block" value={{r.userinfo.username}}" onclick="block(this)">Block</button></td>
+            <td><button class="btn btn-dark" name="block" value="{{r.userinfo.username}}" onclick="block(this)">Block</button></td>
         </tr>
         {% endfor %}
     </tbody>

@@ -67,6 +67,8 @@ def changeprofile(request):
         else:
             return render(request, 'updateprofile.html', {"error":"username is already taken"})
 
+
+#Searching user
 def addfriend(request):
     if request.method == "POST":
         username = request.session['username']
@@ -87,6 +89,8 @@ def addfriend(request):
     else:
         return render(request, "addfriend.html")
 
+
+#Request sent fromhere
 @csrf_exempt
 def linkfriend(request):
     if request.method == "POST":
@@ -97,6 +101,8 @@ def linkfriend(request):
         friend.save()
         return JsonResponse({"msg":"Requested", "user":touser})
 
+
+#All friends details
 def friend(request):
     username = request.session['username']
     requestlist = Friend.objects.filter(touser = username, status = 'requested')
@@ -120,6 +126,7 @@ def friend(request):
         userprofilelist.append(userprofile)
     return render(request, "friends.html", {"requests":requestlist,"profile":userprofilelist, "friendlist": friendprofile})
 
+#All requestes are manage here
 @csrf_exempt
 def managereq(request):
     username = request.session['username']
@@ -138,7 +145,7 @@ def managereq(request):
         return JsonResponse({"msg": "Request declined"})
     
     elif manage == "blocked":
-        print("In the accept")
+        print("In the blocked")
         freq = Friend.objects.filter(fromuser = fromuser, touser = username).first()
         freq.status = "blocked"
         freq.save()
