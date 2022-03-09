@@ -3,30 +3,35 @@
 {% load static %}
 
 {% block head%}
+<link rel="stylesheet" href="{% static 'css/blogfeed.css' %}">
+<title>KARAMEL | BLOGFEED</title>
 {%endblock head%}
 
 {%block body%}
-    <h1>Welcome {{profile.userinfo.username}}</h1>
-    <img src="/media/{{profile.pic}}""  height="200px" width="150px">
-    <h2>Blog Feed</h2>
-    <a href="">Chat</a>
-    <a href="updateform">profile</a>
-    <a href="karamel">Blog Feed</a>
-    <a href="blogform">Upload Blog</a>
-    <a href="addfriend">Add Friends</a>
-    <a href="friend">Friends</a>
-    <a href="mychat">Chats</a>
- 
-    {% for blog in blogs %}
-    <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="media/{{blog.blogpic}}" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">{{blog.title}}</h5>
-          <p class="card-text">{{blog.description}}</p>
-          <a href="#" class="btn btn-primary">{{blog.userinfo.username}}</a>
-        </div>
-      </div>
+<section id="blog">
+  <span>Recently Uploaded Blog</span>
+  <h3>KARAMEL BLOGS</h3>
+</section>
 
-      {% endfor %}
+<div class="blog-container">
+  {% for blog in blogs %}
+  <div class="blog-box">
+
+    <div class="blog-img">
+      <img src="/media/{{blog.blogpic}}" alt="Blog Image">
+  </div>
+    <div class="blog-text">
+      <span style="float:right">Time</span>
+      <a href="#" class="blog-title">{{blog.title}}</a>
+      <p>{{blog.description}}
+      </p>
+      <a href="#">Read More</a>
+      <span style="float:right;">Uploaded by {{blog.userinfo.username}}</span>
+    </div>
+  </div>
+
+  {% endfor %}
+
+</div>
 
 {%endblock body%}

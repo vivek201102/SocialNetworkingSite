@@ -5,7 +5,7 @@ from karamel.views import blogfeed
 
 # Create your views here.
 def index(request):
-    return render(request, "index.html")
+    return render(request, "home.html")
 
 def login(request):
     return render(request, "login.html")
@@ -26,15 +26,12 @@ def register(request):
     gender = request.POST['gender']
     username = request.POST['uname']
     password = request.POST['pass']
-    conform_password = request.POST['cpass']
-
-    #Compair Passwords
-    if password != conform_password:
-        return render(request, "signup.html", {"pass_error": "Password and Conform Password is not matching"})
-    
+ 
     #duplicate username check
     if UserInfo.objects.filter(username = username).exists():
-        return render(request, "signup.html", {"duplicate_user": "This username is already taken please try diffrent username"})
+        context = {"duplicate_user": "Username already taken!!!"}
+        print(context)
+        return render(request, "signup.html", context)
 
     #password encryption
     hashed_pw = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt(14))
@@ -61,7 +58,7 @@ def auth(request):
                 request.session['username'] = user.username
                 return redirect('/karamel')
             else:
-                return render(request, "login.html", {"login_error":"Username and pasword does not match"})
+                return render(request, "login.html", {"login_error":"Username and password does not match!!!"})
 
         else:
             return render(request, "login.html", {"login_error":"User with this username does not exists"})
