@@ -1,0 +1,93 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+
+.banner-area{
+    background-color: gray;
+    background-position: center center;
+    -webkit-background-size:cover;
+    background-size: cover;
+    height: 100vh;
+}
+
+.banner-area a{
+    text-decoration: none;
+    color: aquamarine;
+}
+
+body{
+    margin: 0;
+    padding: 0;
+}
+
+header{
+    padding: 15px 60px;
+}
+
+.menu{
+    width:42%;
+    float:right;
+    list-style: none;
+}
+
+.menu li{
+    width: 100px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    color:#fff;
+    font-size: 13px;
+    float:left;
+}
+
+
+.menu li a{
+    text-decoration: none;
+    font-family: baloo;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.menu li:hover{
+    background: yellow;
+}
+
+.menu a:hover{
+    color: black;
+}
+
+.logo{
+    text-decoration: none;
+    color: #fff;
+    font-size: 30px;
+    font-family: big john;
+    padding: 20px 0;
+    width: 20%;
+    float: left;
+}
+
+.banner-text{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    color:#fff;
+    text-align: center;
+}
+
+.banner-text h2{
+    font-family: baloo;
+    margin: 0;
+    font-family: poppins;
+}
+
+.banner-text a{
+    text-decoration: none;
+    border: 1px solid #fff;
+    font-size: 18px;
+    padding: 10px 35px;
+    color: #fff;
+    display: inline-block;
+    margin-top: 5%;
+    font-family: poppins;
+    text-transform: uppercase;
+}

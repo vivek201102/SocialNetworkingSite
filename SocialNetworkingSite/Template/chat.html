@@ -1,0 +1,88 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block head%}
+
+{% endblock head%}
+
+{% block body %}
+
+<div class="smartphone">
+    <div class="wrapper">
+        <div class="content">
+            <img src="/media/{{toprofile.pic}}" height="70" width="70">
+    <div id="display">
+
+    </div>
+<form id="chatForm"> {% csrf_token %}
+    <div class="container">
+      
+      <input type="hidden" name="chatt" id="chatt"  value="{{to}}">
+      <input type="hidden" name="chatf" id="chatf"  value="{{from}}">
+      <input type="hidden" name="chatUrl" id="chatUrl" value="{{pageurl}}">
+      <p>
+        <label for="msg"></label>
+        <input type="text" class="form-control" name="msg" id="msg" rows="1" required>
+      </p>
+    </div>
+    <button class="btn btn-success">send</button>
+  </form>
+</div>
+</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).on('submit', '#chatForm', function(e){
+        e.preventDefault();
+
+        $.ajax({
+            type:'POST',
+            url:'/sendchat',
+            data:{
+                fromuser:$("#chatf").val(),
+                touser:$("#chatt").val(),
+                url:$("#chatUrl").val(),
+                message:$("#msg").val(),
+                csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+            },
+
+            success:function(data){},
+        });
+        document.getElementById("msg").value = '';
+    });
+</script>
+
+<script>
+    $(document).ready(function(){
+        setInterval(function(){
+            $.ajax({
+                type:'GET',
+                url:"/{{pageurl}}/chats",
+                data:{
+                    csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
+                },
+
+                success: function(response){
+                    $("#display").empty();
+                    
+                    for(i in response.msg)
+                    {
+                        if(response.msg[i].message == '' || response.msg.message == ' ')
+                            continue;
+                        var temp = "<div class='container darker'><b>"+response.msg[i].fromuser+"</b><p>"+response.msg[i].message+"</p><span class='time-left'>"+response.msg[i].date+"</span></div>";
+
+                        $("#display").append(temp);
+                    }
+
+                },
+
+                error: function(response)
+                {}
+            });
+        }, 1000);
+    });
+</script>
+
+{% endblock body %}
