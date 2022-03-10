@@ -9,10 +9,10 @@ const file = document.querySelector('#file');
 
 file.addEventListener('change', function(){
     //this refers to file
+
     const choosedFile = this.files[0];
 
     if (choosedFile) {
-
         const reader = new FileReader(); //FileReader is a predefined function of JS
 
         reader.addEventListener('load', function(){
@@ -20,5 +20,7 @@ file.addEventListener('change', function(){
         });
 
         reader.readAsDataURL(choosedFile);
+ 
     }
+
 });

@@ -22,8 +22,6 @@ urlpatterns = [
     path('managereq', k_views.managereq, name="managereq"),
     path('mychat', c_views.mychat, name="mychat"),
     path('getchat', c_views.getchat, name="getchat"),
-    path('<str:chaturl>/interface/',c_views.chat,name="chat" ),
-    path('<str:chaturl>/chats',c_views.getmsg,name="germsg"),
     path('sendchat',c_views.sendchat,name="sendchat"),
         
 ]
