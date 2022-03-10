@@ -78,7 +78,7 @@ aside li img{
     margin-left:20px;
     margin-right:8px;
     height: 75px;
-    width: 75px;
+    width: 75px; 
 }
 
 aside li div{
@@ -130,7 +130,6 @@ main header{
 }
 
 main header > *{
-    display:inline-block;
     vertical-align:top;
 }
 

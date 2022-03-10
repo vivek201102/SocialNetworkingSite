@@ -1,6 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
-from chat.models import friendchatpage, friendmessage
+from chat.models import friendmessage
 
 from karamel.models import Friend
 from django.db.models import Q
@@ -34,27 +34,19 @@ def getchat(request):
     if request.method == 'POST':
         tochat = request.POST['chatto']
         fromchat  = request.session['username']
-        friendchat = friendchatpage.objects.filter(Q(fromuser = fromchat, touser = tochat) | Q(fromuser = tochat, touser = fromchat)).first()
-        if friendchat is None:
-            url = get_random_string(length=4)+fromchat + tochat +get_random_string(length=4)
-            friendchat = friendchatpage(fromuser = fromchat, touser = tochat, url = url)
-            friendchat.save()
-        message = friendmessage.objects.values().filter(url = friendchat.url)
-        print(friendchat.url)
+        message = friendmessage.objects.values().filter(Q(fromuser = fromchat, touser = tochat) | Q(fromuser = tochat, touser = fromchat))
         messagelist = list(message)
         return JsonResponse({"message": messagelist, "self": fromchat})
-
-
-
 
 
 def sendchat(request):
     userFrom = request.session['username']
     userTo = request.POST['touser']
-    fd = friendchatpage.objects.filter(Q(fromuser = userFrom, touser = userTo) | Q(fromuser = userTo, touser = userFrom)).first()
-    url = fd.url
     message = request.POST['message']
-    messageObj = friendmessage(fromuser = userFrom, touser = userTo, url = url, message = message)
+    print(userFrom)
+    print(userTo)
+    print(message)
+    messageObj = friendmessage(fromuser = userFrom, touser = userTo, message = message)
+    print(messageObj)
     messageObj.save()
-    request.POST['chatto'] = userTo
-    return getchat(request)
+    return JsonResponse({"letsgo":"Apna message chala gaya"})

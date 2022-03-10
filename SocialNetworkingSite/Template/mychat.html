@@ -2,30 +2,7 @@
 {% load static %}
 {% block head %}
 <link rel="stylesheet" href="{% static 'css/chat.css' %}">
-<style>
-    .arrow{
-        border: solid black;
-        border-width: 0 3px 3px 0;
-        display: inline-block;
-        padding: 3px;
-    }
 
-    .right{
-        transform: rotate(-45deg);
-        -webkit-transform: rotate(-45deg);
-    }
-
-    .myclass{
-        margin-top: 4%;
-        margin-bottom: 4%;
-    }
-
-    .btn{
-        margin:auto;
-    }
-
-
-</style>
 
 {% endblock head %}
 
@@ -36,47 +13,57 @@
         <header>
             <input type="text" placeholder="search">
         </header>
+        
+
         <ul>
             {% for prof in profile %}
+            <a onclick="chatit('{{prof.userinfo.username}}')">
             <li>
-                <img src="media/{{prof.pic}}" alt="">
+                <img src="media/{{prof.pic}}" alt="" height="80" width="80" style="border-radius:50%;">
                 <div>
-                    <h2>{{prof.userinfo.username}}</h2>
+                    <h2>
+                        {{prof.userinfo.username}}
+                    </h2>
                     <h3>
                        {{prof.status}}
                     </h3>
                 </div>
-                <button class="btn" id="chatto" name="{{prof.pic}}" value="{{prof.userinfo.username}}" style="margin-right:0%; float: right;" onclick="chatit(this)"><i class="arrow right"></i></button>
             </li>
+        </a>
             {% endfor %}
         </ul>
+
+        
     </aside>
-
-
-
     <main>
-        <header id="guest">
+        <header>
+            
+            <div id="info" style="display: none;">
+                
+                <h2 id="infoh2"></h2>
 
+            </div>
         </header>
-        <ul id="chat">
-            
-            
+        <ul>
+            <div id="chat">
+
+            </div>
         </ul>
         <footer>
-            <form >
+            <div id="guest">
+            <form id="chatForm" >
                 {% csrf_token %}
-                <div id="chatForm">
-
-                </div>
-            
+            <textarea placeholder="Type your message" id="msg" style="float:left"></textarea>
+            <input type="hidden" value="" id="chatt">
+            <button style="float:right;">Send</a>
             </form>
+            </div>
         </footer>
     </main>
 </div>
 
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
-
 
 <script>
     $(document).on('submit', '#chatForm', function(e){
@@ -97,52 +84,45 @@
     });
 </script>
 
-
-
 <script>
     function chatit(a)
     {
+        document.getElementById("info").style.display = "block";
+        document.getElementById("guest").style.display = "block";
+        document.getElementById("infoh2").innerHTML = a;
+        document.getElementById("chatt").value = a;
         
-        $("#guest").empty();
-        $("#guest").append(`<img src="media/${a.name}" alt="" height="70" width="70" style="border-radius:50%; vertical-align: baseline;"><div><h2>${a.value}</h2></div>`);
-
-        
-        $("#chatForm").append(`<textarea placeholder="Type your message" id="msg" style="float:left"></textarea><button style="float:right;">Send</button><input type="hidden" name="${a.value}" id="chatt" value="${a.value}">`);
-
         setInterval(function(){
+            $.ajax({
+                type:'POST',
+                url:'/getchat',
+                data:{
+                    chatto:$("#chatt").val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                },
 
-        $.ajax({
-            type: "POST",
-            url: "/getchat",
-            data:{
-                chatto:a.value,
-                csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
-            },
-            success: function(response)
-            {
-                $("#chat").empty();
-                message = response.message;
-                myself = response.self;
-                for(var i=0; i<message.length; i++)
+                success: function(response)
                 {
-                    if(message[i].fromuser == myself)
+                    $("#chat").empty();
+                    myself = response.self;
+                    message = response.message;
+                    for(var i in response.message)
                     {
-                        
-                        $("#chat").append( `<li class="me"><div class="entete"><span class="status green"></span><h2>${myself}</h2><h3>${message[i].date}</h3></div><div class="triangle"></div><div class="message">${message[i].message}</div></li>`);
+                        if(message[i].fromuser == myself)
+                        {
+                            
+                            $("#chat").append( `<li class="me"><div class="entete"><span class="status green"></span><h3>${message[i].date}</h3></div><div class="triangle"></div><div class="message">${message[i].message}</div></li>`);
+                        }
+                        else{
+                            
+                            $("#chat").append(`<li class="you"><div class="entete"><span class="status green"></span><h3>${message[i].date}</h3></div><div class="triangle"></div><div class="message">${message[i].message}</div></li>`);
+                        }
                     }
-                    else{
-                        
-                        $("#chat").append(`<li class="you"><div class="entete"><span class="status green"></span><h2>${a.value}</h2><h3>${message[i].date}</h3></div><div class="triangle"></div><div class="message">${message[i].message}</div></li>`);
-                    }
+                    
+                    
                 }
-                document.getElementById("chat").scrollTop = document.getElementById("chat").scrollHeight;
-                
-                
-            },
-        
-        });
-    },1000);
-
+            });
+        },1000);
 
     }
 </script>
