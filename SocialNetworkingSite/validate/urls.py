@@ -5,6 +5,7 @@ from chat import views as c_views
 urlpatterns = [
     path('', v_views.index, name="index"),
     path('login', v_views.login, name="login"),
+    path('logout', v_views.logout, name="logout"),
     path('signup', v_views.signup, name="signup"),
     path('about', v_views.about, name="about"),
     path('register', v_views.register, name="register"),
@@ -22,8 +23,6 @@ urlpatterns = [
     path('managereq', k_views.managereq, name="managereq"),
     path('mychat', c_views.mychat, name="mychat"),
     path('getchat', c_views.getchat, name="getchat"),
-    path('<str:chaturl>/interface/',c_views.chat,name="chat" ),
-    path('<str:chaturl>/chats',c_views.getmsg,name="germsg"),
     path('sendchat',c_views.sendchat,name="sendchat"),
         
 ]

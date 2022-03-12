@@ -10,6 +10,7 @@ class Blogdetails(models.Model):
     description = models.TextField()
     blogpic = models.ImageField(upload_to = "blogs")
     blogref = models.TextField()
+    dandt = models.CharField(max_length=25, default="none")
 
 
 class Friend(models.Model):

@@ -2,6 +2,9 @@
 
 {% block head %}
 <style>
+    table{
+        margin: 0 auto;
+    }
     td,
     th {
     border: 1px solid #ddd;
@@ -23,11 +26,18 @@
     background-color: lightblue;
     color: white;
   }
+
+  .reque{
+
+      text-align:center;
+      justify-content: center;
+  }
 </style>
 
 {% endblock head %}
 
 {% block body %}
+<div class="reque">
 <div id="req">
 <h3>YOUR REQUEST LIST</h3>
 {% if profile %}
@@ -88,6 +98,7 @@
 {% else %}
 <p>No friends Found!!!</p>
 {% endif %}
+</div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
