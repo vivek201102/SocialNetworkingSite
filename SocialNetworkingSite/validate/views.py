@@ -14,6 +14,8 @@ def signup(request):
     return render(request, "signup.html")
 
 def about(request):
+    if request.session['username'] == "undefined":
+        return redirect("/")
     return render(request, "about.html")
 
 def register(request):
@@ -65,6 +67,8 @@ def auth(request):
 
 
 def setup(request):
+    if request.session['username'] == "undefined":
+        return redirect("/")
     if request.method == "POST":
         profile = Userprofile()
         username = request.POST['uname']
@@ -77,4 +81,8 @@ def setup(request):
         request.session['username'] = username
 
     return redirect('/karamel')
+
+def logout(request):
+    request.session['username'] = "undefined"
+    return redirect('/')
 

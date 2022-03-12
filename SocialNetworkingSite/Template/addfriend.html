@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head%}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"> -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet"
   type="text/css" />
@@ -41,23 +41,35 @@
   #flist {
     display: none;
   }
+
+  .container{
+    text-align: center;
+  }
+
+  .search-content{
+    margin:auto;
+  }
+
+  .friendList
+  {
+    margin-top: 5%;
+  }
 </style>
 {%endblock head%}
 
 {%block body%}
 
 <div class="container">
-  <form class="row g-3 needs-validation" id="thisform" method="post" action="addfriend">{% csrf_token %}
+  <form class="search-content" id="thisform" method="post" action="addfriend">{% csrf_token %}
     <div class="col-md-4">
       <label for="validationCustom01" class="form-label">Search by username</label>
       <input type="text" class="form-control" id="name" placeholder="Mark" required name="name">
       <br>
       <button name="searchbtn" id="search" class="btn btn-primary"><i class="fa fa-search"
           aria-hidden="true"></i></button>
-      <hr>
     </div>
   </form>
-  <i class="fas fa-terminal" id="message" style="display: none;"></i>
+  <i class="" id="message" style="display: none;"></i>
   <hr>
   <div class="friendList" id="flist">
     <table id="users">
@@ -95,8 +107,7 @@
           csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
         },
         success: function (response) { // on success..
-          mesg = response.msg
-          $('#message').html(mesg);
+          mesg = response.msg 
           document.getElementById("message").style.display = "block";
           if (mesg == "Found User with username is") {
             userinfo = response.infolist;

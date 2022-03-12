@@ -10,6 +10,8 @@ from django.utils.crypto import get_random_string
 
 # Create your views here.
 def mychat(request):
+    if request.session['username'] == "undefined":
+        return redirect("/")
     username = request.session['username']
     friend = Friend.objects.filter(Q(touser = username, status = 'Friends') | Q(fromuser = username, status = 'Friends'))
     profile = []
@@ -40,6 +42,7 @@ def getchat(request):
 
 
 def sendchat(request):
+
     userFrom = request.session['username']
     userTo = request.POST['touser']
     message = request.POST['message']

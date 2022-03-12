@@ -5,7 +5,11 @@
 
 
 {% endblock head %}
-
+<style>
+    ::-webkit-scrollbar {
+    display: none;
+}
+</style>
 {% block body %}
 
 <div id="container">
@@ -91,7 +95,8 @@
         document.getElementById("guest").style.display = "block";
         document.getElementById("infoh2").innerHTML = a;
         document.getElementById("chatt").value = a;
-        
+        var oldcount =0;
+        var newcount = 0;
         setInterval(function(){
             $.ajax({
                 type:'POST',
@@ -103,11 +108,13 @@
 
                 success: function(response)
                 {
+                    oldcount = 0;
                     $("#chat").empty();
                     myself = response.self;
                     message = response.message;
                     for(var i in response.message)
                     {
+                        oldcount++;
                         if(message[i].fromuser == myself)
                         {
                             
@@ -118,7 +125,13 @@
                             $("#chat").append(`<li class="you"><div class="entete"><span class="status green"></span><h3>${message[i].date}</h3></div><div class="triangle"></div><div class="message">${message[i].message}</div></li>`);
                         }
                     }
-                    
+                    console.log(oldcount);
+                    console.log(newcount);
+                    if (oldcount != newcount) {
+                                var myDiv = $('#chat');
+                                myDiv.scrollTop(myDiv[0].scrollHeight - myDiv[0].clientHeight);
+                            }
+                            newcount = oldcount;
                     
                 }
             });
