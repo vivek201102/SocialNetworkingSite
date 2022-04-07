@@ -14,7 +14,7 @@
         {% csrf_token%}
             <input type="file" id="file" name="profilepic">
             <img src="{%static 'img/image.jpg' %}" id="photo" width="100%" height="100%">
-            <label for="file">EDIT PIC</label>
+            <label for="file" style="margin-left: 48px;">EDIT PIC</label>
     
         
         
@@ -22,7 +22,7 @@
             <textarea name="bio" placeholder="Bio" type="text" rows="5"></textarea>
     
         
-            <button type="submit" class="btn btn-dark">DONE</button>
+            <button type="submit" class="btn btn-dark" style="background-color: black; color: white; font-size: 18px;">DONE</button>
         
         </div>
     </form>

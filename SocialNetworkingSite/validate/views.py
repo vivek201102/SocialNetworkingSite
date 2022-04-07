@@ -14,8 +14,6 @@ def signup(request):
     return render(request, "signup.html")
 
 def about(request):
-    if request.session['username'] == "undefined":
-        return redirect("/")
     return render(request, "about.html")
 
 def register(request):
@@ -43,6 +41,7 @@ def register(request):
     return render(request, "setup.html", {"username": username})
 
 
+
 def auth(request):
     #Method Check
     if request.method == "POST":
@@ -66,9 +65,8 @@ def auth(request):
             return render(request, "login.html", {"login_error":"User with this username does not exists"})
 
 
+
 def setup(request):
-    if request.session['username'] == "undefined":
-        return redirect("/")
     if request.method == "POST":
         profile = Userprofile()
         username = request.POST['uname']

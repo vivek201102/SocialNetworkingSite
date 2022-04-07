@@ -2,8 +2,7 @@
 
 
 .banner-area{
-    background-color: gray;
-    background-position: center center;
+    background-image:url("/static/img/bg.jpeg");
     -webkit-background-size:cover;
     background-size: cover;
     height: 100vh;
@@ -49,6 +48,11 @@ header{
 
 .menu li:hover{
     background: yellow;
+}
+
+#get:hover{
+    background: yellow;
+    color: black;
 }
 
 .menu a:hover{

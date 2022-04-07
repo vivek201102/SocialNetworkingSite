@@ -16,7 +16,7 @@
 			<img src="{%static 'img/bg.svg' %}">
 		</div>
 		<div class="login-content">
-			<form action="auth" method="POST">
+			<form action="/auth" method="POST">
                 {% csrf_token %}
 				<h2>KARAMEL</h2>
 				<span style="color: red;">{{login_error}}</span>
@@ -25,8 +25,8 @@
            		   		<i class="fas fa-user"></i>
            		   </div>
            		   <div class="div">
-           		   		<h5>Username</h5>
-           		   		<input type="text" class="input" name="uname">
+           		   		<!-- <h5>Username</h5> -->
+           		   		<input type="text" class="input" name="uname" placeholder="Username">
            		   </div>
            		</div>
            		<div class="input-div pass">
@@ -34,13 +34,13 @@
            		    	<i class="fas fa-lock"></i>
            		   </div>
            		   <div class="div">
-           		    	<h5>Password</h5>
-           		    	<input type="password" class="input" name="pass">
+           		    	<!-- <h5>Password</h5> -->
+           		    	<input type="password" class="input" name="pass" placeholder="Password">
             	   </div>
             	</div>
 				
             	<a href="#" style="float: right; margin-top: 2%; margin-bottom: 2%;">Forgot Password?</a>
-				<a href="signup" style="float: left; margin-top: 2%; margin-bottom: 2%;">New User?</a>
+				<a href="/signup" style="float: left; margin-top: 2%; margin-bottom: 2%;">New User?</a>
             	<button class="btn" type="submit">Login</button>
             </form>
         </div>

@@ -9,6 +9,9 @@ from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
 # Create your views here.
 
+def mykaramel(request):
+    return redirect("/karamel")
+
 def karamel(request):
     if request.session['username'] == "undefined":
         return redirect("/")
@@ -60,6 +63,7 @@ def updateform(request):
     userprof = Userprofile.objects.get(userinfo = UserInfo.objects.get(username = username))
     return render(request, "updateprofile.html", {"profile": userprof})
 
+
 def changeprofile(request):
     if request.session['username'] == "undefined":
         return redirect("/")
@@ -81,7 +85,16 @@ def changeprofile(request):
             userprofile.save() 
         else:
             return render(request, 'updateprofile.html', {"error":"username is already taken"})
+    return redirect("/karamel")
 
+def letfriend(request):
+    return redirect("/addfriend")
+
+def newfriend(request):
+    return redirect("/friend")
+
+def profile(request):
+    return redirect("/updateform")
 
 #Searching user
 def addfriend(request):

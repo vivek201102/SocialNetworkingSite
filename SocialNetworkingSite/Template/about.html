@@ -1,14 +1,45 @@
-{% extends 'base.html'%}
+{% load static %}
 
-{% block head%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="{%static '/css/about.css' %}">
 
-{% endblock head %}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Cookie&family=Jolly+Lodger&family=Nosifer&family=PT+Sans+Narrow:wght@700&family=Pacifico&family=Spectral+SC:wght@200&family=Syne+Mono&family=Teko:wght@300&family=Zilla+Slab+Highlight:wght@700&display=swap" rel="stylesheet">
 
-
-
-{% block body%}
-
-<h4>Register Successfully</h4>
-<img src="/media/{{profile.pic}}" width="200px" height="200px"
-<h4>Login Successfully</h4>
-{% endblock body%}
+</head>
+<body>
+   <div class="wrapper">
+       <div class="background-color">
+           <div class="bg-1"></div>
+           <div class="bg-2"></div>
+       </div>
+       <div class="about-container">
+           <div class="image-container">
+               <img src="{% static 'img/About.png' %}" alt="">
+           </div>
+           <div class="text-container">
+               <h1>Karamel<span> &nbsp&nbspCulture</span></h1>
+               <P>What is Karamel curios to know ?<br>
+                
+                  Very well Karamel is one unified Culture that captures all the Cultures around you 
+                  in a single place we call as the sweet Karamel. You can talk about any culture or even create your own unique one.
+                  whatever it is you're just one Blog away.<br><br>
+                
+                  Discuss|Create|Learn<br>
+                  
+                  Spread Love and Positivity &nbsp<span>&nbspPEACE.</span></P>
+               <button type="btn1"><a href="/" style="text-decoration: none; color:white;">Join Karamel Now</a></button>
+               
+           </div>
+       </div>
+   </div>
+    
+</body>
+</html>

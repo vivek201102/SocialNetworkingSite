@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Chelsea+Market&family=Cookie&family=Jolly+Lodger&family=Nosifer&family=PT+Sans+Narrow:wght@700&family=Pacifico&family=Spectral+SC:wght@200&family=Syne+Mono&family=Teko:wght@300&family=Zilla+Slab+Highlight:wght@700&display=swap');
+
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+.wrapper{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.background-color{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+
+}
+
+.bg-1{
+    flex: 1;
+    /* background-color: #5f4b8bff; */
+    background-color: skyblue;
+}
+
+.bg-2{
+    flex: 1;
+    background-color: whitesmoke;
+}
+.about-container{
+    width: 85%;
+    min-height: 80vh;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: whitesmoke;
+    border: 2px solid white;
+    padding: 20px;
+    border-radius: 7px;
+    box-shadow: 40px 20px 40px #5b76c0;
+}
+.image-container{
+    flex: 1;
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.image-container img{
+    width: 500px;
+    height: 500px;
+    object-fit: cover;
+    border-radius:5px ;
+
+}
+.text-container{
+    flex: 1;
+   
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+
+}
+
+.text-container h1{
+    font-size: 50px;
+    padding: 10px 0px;
+    font-family: 'Pacifico', cursive;
+    color:black;
+}
+
+.text-container p{
+    font-size: 25   px;
+    padding: 10px 0px;
+    font-family: 'Teko', sans-serif;
+
+
+}
+.text-container p span{
+    font-size: 40px;
+    padding: 10px 0px;
+    font-family: 'Syne Mono', monospace;
+    color:olivedrab;
+}
+
+.text-container button{
+    margin-top: 21px;
+    background: red;
+    color: whitesmoke;
+    text-decoration: none;
+    border: 2px solid transparent;
+    font-weight: bold;
+    padding: 15px 20px;
+    border-radius: 30px;
+    transition: .4s;
+}
+
+.text-container button:hover{
+    background:oldlace;
+    border: 2px solid red;
+    cursor: pointer;
+    color: black;
+    
+}
+
+@media screen and (max-width:1600px) {
+    .about-container{
+        width: 90%;
+    }
+    .image-container img{
+        width: 400px;
+        height: 400px;
+    }
+    .text-container h1{
+        font-size: 50px;
+    }
+    
+}
+@media screen and (max-width: 930px) {
+    .about-container{
+        flex-direction: column;
+    }
+    .text-container{
+        align-items: center;
+    }
+}
+@media screen and (max-width:460px) {
+    .image-container img{
+        width: 300px;
+        height: 300px;
+    }
+    .text-container p{
+        font-size: 20px;
+    }
+    
+}
+.text-container span{
+    font-family: 'Jolly Lodger', cursive;
+    color:steelblue;
+    font-size: 75px;
+    
+
+}

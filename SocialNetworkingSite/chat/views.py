@@ -9,6 +9,13 @@ from validate.models import UserInfo, Userprofile
 from django.utils.crypto import get_random_string
 
 # Create your views here.
+
+def letchat(request):
+    return redirect("/mychat")
+
+
+
+
 def mychat(request):
     if request.session['username'] == "undefined":
         return redirect("/")
