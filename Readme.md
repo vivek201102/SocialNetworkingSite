@@ -1,33 +1,17 @@
-<h2>KARAMEL</h2>
-<h3>--------------------------------------------------------------------------------</h3>
-<h4>Created By</h4>
-<table style="border:2px dashed black">
-<tr>
-<th>Name</th>
-<th>Permanent ID</th>
-<th>Roll No</th>
-</tr>
-<tr>
-<td>Vivek Patel</td>
-<td>20CEUOS007</td>
-<td>CE109
-</tr>
-<tr>
-<td>Kushal Patel</td>
-<td>20CEUOS041</td>
-<td>CE100
-</tr>
-<tr>
-<td>Aaryan P</td>
-<td>20ECUOS045</td>
-<td>CE089</td>
-</tr>
-</table>
-<h3>--------------------------------------------------------------------------------</h3>
-<h2>Project Description</h2>
-<h4>Title</h4>
-<p>Social Networking site</p>
-<h4>Decription</h4>
-<p>You can chat with your friends and also share your opinion using blogs</p>
+<h2>Social Networking Site</h2>
+<p>This project contains the functionality of chatting with users, uploading the blogs and also make friends over their</p>
+<p></p>
+<h3>Languages:</h3>
+<p>HTML, CSS for designing the UI</p>
+<p>Django, Ajax and Javascript for logical purpose</p>
+
+<h3>Information about Project</h3>
+<p>Social Networking site named as <b>KARAMEL</b></p>
+<p>Here you can upload your thoughts about any event or point using the feature of upload blog. In addition you can read other's blog on our website. Also there is the functionality of send the friend request to other user who are using our website. All user can manage requested by the user by accepting, rejectin or blocking them. Two user who are friends of each other they can interact with the chat function.</p>
+
+<h5>Project contributers:</h5>
+<h6>Vivek Patel<br>Kushal Patel<br>Aaryan Maya</h6>
+
+
 
 
